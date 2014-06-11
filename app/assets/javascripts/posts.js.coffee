@@ -13,12 +13,28 @@ $(document).on 'ready',() ->
       url : 'url'
     }
     $.post('/posts', data)
-    .success(successCallback)
-    .fail(failCallback)
-    return false
+    .success(postSuccessCallback)
+    .fail(postFailCallback)
+    false
 
-  successCallback = (data) ->
+  postSuccessCallback = (data) ->
     location.reload()
 
-  failCallback = (data) ->
+  postFailCallback = (data) ->
+    console.log data
+
+  $('#comment-submit').on 'click', () ->
+    data = {
+      post_id : location.href.split('/').pop(),
+      content : $('#comment-content').val()
+    }
+    $.post('/comments', data)
+    .success(commentSuccessCallback)
+    .fail(commentFailCallback)
+    false
+
+  commentSuccessCallback = (data) ->
+    location.reload()
+
+  commentFailCallback = (data) ->
     console.log data

@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   root 'posts#index'
 
   resources :posts
+  resources :comments
   # resource :comments
 
   # Example of regular route:

@@ -11,5 +11,21 @@
 <br>
 
 <div>
-  <h3>comment:</h3>
+  <h3>comments:</h3>
+
+  <% @post.comments.desc(:updated_at).each do |comment| %>
+    <p>
+      <%= comment.member.name %>&nbsp;<%= comment.created_at.localtime.to_formatted_s(:db) %>&nbsp;:&nbsp;<%= comment.content %>
+    </p>
+  <% end %>
+
+  <form action="" id="comment-form">
+    <p>
+      <label for="">comment:</label><br>
+      <textarea name="" id="comment-content" cols="30" rows="10"></textarea>
+    </p>
+    <p>
+      <button id="comment-submit">submit</button>
+    </p>
+  </form>
 </div>
