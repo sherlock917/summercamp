@@ -3,6 +3,7 @@
 <head>
   <title><%= @page_title || "HCI Summercamp 2014" %></title>
   <%= stylesheet_link_tag    'application', media: 'all' %>
+  <%= qygments_css %>
   <%= javascript_include_tag 'application' %>
   <%= csrf_meta_tags %>
   <% if member_signed_in? %>

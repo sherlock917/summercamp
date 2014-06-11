@@ -43,3 +43,9 @@ gem 'devise'
 
 # Use qiniu
 gem 'qiniu', '~> 6.2.1'
+
+# Use redcarpet
+gem 'redcarpet'
+
+# Use pygments
+gem 'pygments.rb'
