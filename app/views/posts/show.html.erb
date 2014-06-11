@@ -16,7 +16,8 @@
 
   <% @post.comments.desc(:updated_at).each do |comment| %>
     <p>
-      <%= comment.member.name %>&nbsp;<%= comment.created_at.localtime.to_formatted_s(:db) %>&nbsp;:&nbsp;<%= comment.content %>
+      <%= comment.member.name %>&nbsp;<%= comment.created_at.localtime.to_formatted_s(:db) %>&nbsp;:<br>
+      <%= markdown_to_html(comment.content).html_safe %>
     </p>
   <% end %>
 
