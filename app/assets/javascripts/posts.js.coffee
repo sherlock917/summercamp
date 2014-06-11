@@ -8,7 +8,8 @@ $(document).on 'ready',() ->
   $('#post-submit').on 'click', () ->
     if $('#post-attachment')[0].files.length > 0
       file = $('#post-attachment')[0].files[0]
-      upload file
+      if uploadable(file.type, file.size)
+        upload file
     else 
       createPost {
         title : $('#post-title').val(),
@@ -16,6 +17,14 @@ $(document).on 'ready',() ->
         cate : $('#post-cate').val()
       }
     false
+
+  uploadable = (type, size) ->
+    (type == 'application/x-rar' || 
+    type == 'application/zip' ||
+    type == 'image/jpeg' ||
+    type == 'image/png' || 
+    type == 'image/gif') &&
+    (size < 50000000)
 
   upload = (file) ->
     token = $('meta[name="qiniu-token"]').attr 'content'
