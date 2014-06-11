@@ -1,5 +1,15 @@
-<p><%= @post.member.department %></p>
-<p><%= @post.title %></p>
-<p><%= @post.content %></p>
-<p><%= @post.url %></p>
-<p><%= @post.created_at.localtime.to_formatted_s(:db) %></p>
+<div>
+  <h3>post:</h3>
+  <p>name: <%= @post.member.name %></p>
+  <p>department: <%= @post.member.department %></p>
+  <p>title: <%= @post.title %></p>
+  <p>content: <%= @post.content %></p>
+  <p>url: <%= @post.url %></p>
+  <p>time: <%= @post.created_at.localtime.to_formatted_s(:db) %></p>
+</div>
+
+<br>
+
+<div>
+  <h3>comment:</h3>
+</div>

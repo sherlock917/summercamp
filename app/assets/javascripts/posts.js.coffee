@@ -18,7 +18,7 @@ $(document).on 'ready',() ->
     return false
 
   successCallback = (data) ->
-    console.log data
+    location.reload()
 
   failCallback = (data) ->
     console.log data
