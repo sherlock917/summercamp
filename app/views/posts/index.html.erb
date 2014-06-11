@@ -36,11 +36,8 @@
 <% @posts.each do |post| %>
   
   <div>
-    <p>
-      <%= link_to 'show', posts_path %>
-    </p>
+    <p><%= link_to post.title, post_path(post) %></p>
     <p><%= post.member_id %></p>
-    <p><%= post.title %></p>
     <p><%= post.content %></p>
     <p><%= post.url %></p>
     <p><%= post.created_at.localtime.to_formatted_s(:db) %></p>

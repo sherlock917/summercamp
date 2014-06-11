@@ -8,7 +8,8 @@
 
   <div><%= f.label :department %><br />
   <!-- <%= f.text_field :department %> -->
-  <%= select_tag "department", "<option> UED - 前端 </option><option> UED - 设计 </option><option> 研发 - 后台 </option><option> 研发 - 移动 </option><option> 研发 - 系统 </option><option> 产品 </option>".html_safe %></div>
+  <%= f.select :department, "<option value='frontend'> UED - 前端 </option><option value='design'> UED - 设计 </option><option value='backend'> 研发 - 后台 </option><option value='mobile'> 研发 - 移动 </option><option value='system'> 研发 - 系统 </option><option value='product'> 产品 </option>".html_safe %>
+  </div>
 
   <div><%= f.label :email %><br />
   <%= f.email_field :email %></div>
