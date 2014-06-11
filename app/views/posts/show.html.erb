@@ -4,7 +4,7 @@
   <p>department: <%= @post.member.department %></p>
   <p>title: <%= @post.title %></p>
   <p>content: <%= @post.content %></p>
-  <p>url: <%= @post.url %></p>
+  <p>url: <%= @post.attachment_url %></p>
   <p>time: <%= @post.created_at.localtime.to_formatted_s(:db) %></p>
 </div>
 

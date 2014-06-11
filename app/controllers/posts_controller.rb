@@ -7,7 +7,7 @@ class PostsController < ApplicationController
   end
 
   def create
-    @post = current_member.posts.new(params.permit(:title,:content,:cate,:url))
+    @post = current_member.posts.new(params.permit(:title,:content,:cate,:attachment_name,:attachment_url))
     @post.save
   end
 

@@ -6,16 +6,50 @@
 $(document).on 'ready',() ->
 
   $('#post-submit').on 'click', () ->
-    data = {
-      title : $('#title').val(),
-      content : $('#content').val(),
-      cate : $('#cate').val(),
-      url : 'url'
-    }
+    if $('#post-attachment')[0].files.length > 0
+      file = $('#post-attachment')[0].files[0]
+      upload file
+    else 
+      createPost {
+        title : $('#post-title').val(),
+        content : $('#post-content').val(),
+        cate : $('#post-cate').val()
+      }
+    false
+
+  upload = (file) ->
+    token = $('meta[name="qiniu-token"]').attr 'content'
+    fd = new FormData()
+    fd.append 'file', file
+    fd.append 'key', file.name
+    fd.append 'token', token
+    console.log 'start uploading'
+    $.ajax
+      url: 'http://up.qiniu.com',
+      dataType: 'json',
+      method: 'post',
+      data: fd,
+      contentType: false,
+      processData: false,
+      success : (data) ->
+        createPost {
+          title : $('#post-title').val(),
+          content : $('#post-content').val(),
+          cate : $('#post-cate').val(),
+          attachment_name : file.name,
+          attachment_url : 'http://scauhci.qiniudn.com/' + data.key
+        }
+      xhr : () ->
+        xhr = $.ajaxSettings.xhr()
+        xhr.upload.onprogress = (progress) ->
+          percentage = Math.floor(progress.loaded / progress.total * 100)
+          console.log  percentage
+        xhr
+
+  createPost = (data) ->
     $.post('/posts', data)
     .success(postSuccessCallback)
     .fail(postFailCallback)
-    false
 
   postSuccessCallback = (data) ->
     location.reload()
