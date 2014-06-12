@@ -5,7 +5,14 @@
   <p>title: <%= @post.title %></p>
   <p>content: </p>
   <div><%= markdown_to_html(@post.content).html_safe %></div>
-  <p>url: <%= @post.attachment_url %></p>
+  <p>
+    attachment: 
+    <% if @post.attachment_url.to_s.ends_with?('.jpg', '.png', '.gif') %>
+      <%= image_tag @post.attachment_url %>
+    <% else %>
+      <%= link_to 'download', @post.attachment_url %>
+    <% end %>
+  </p>
   <p>time: <%= @post.created_at.localtime.to_formatted_s(:db) %></p>
 </div>
 

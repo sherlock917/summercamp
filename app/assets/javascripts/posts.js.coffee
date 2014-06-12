@@ -52,7 +52,7 @@ $(document).on 'ready',() ->
         xhr = $.ajaxSettings.xhr()
         xhr.upload.onprogress = (progress) ->
           percentage = Math.floor(progress.loaded / progress.total * 100)
-          # console.log  percentage
+          console.log  percentage
         xhr
 
   createPost = (data) ->
