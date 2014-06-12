@@ -5,18 +5,30 @@
 
 $(document).on 'ready',() ->
 
+  $('.post-attachment').on 'change', () ->
+    console.log $(this)
+    # $('#post-attachment-1')
+    # .clone()
+    # .attr('id', )
+    # .insertAfter
+
   $('#post-submit').on 'click', () ->
-    if $('#post-attachment')[0].files.length > 0
-      file = $('#post-attachment')[0].files[0]
-      if uploadable(file.type, file.size)
-        upload file
-    else 
-      createPost {
-        title : $('#post-title').val(),
-        content : $('#post-content').val(),
-        cate : $('#post-cate').val()
-      }
+    # if $('#post-attachment')[0].files.length > 0
+    #   file = $('#post-attachment')[0].files[0]
+    #   if uploadable(file.type, file.size)
+    #     upload file
+    # else 
+    #   createPost {
+    #     title : $('#post-title').val(),
+    #     content : $('#post-content').val(),
+    #     cate : $('#post-cate').val()
+    #   }
     false
+
+  isImage = (type) ->
+    type == 'image/jpeg' ||
+    type == 'image/png' || 
+    type == 'image/gif'
 
   uploadable = (type, size) ->
     (type == 'application/x-rar' || 
