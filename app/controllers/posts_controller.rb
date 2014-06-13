@@ -15,5 +15,14 @@ class PostsController < ApplicationController
     @post = Post.find(params[:id])
     @page_title = @post.title
   end
+
+  def edit
+    @post = current_member.posts.find(params[:id])
+  end
+
+  def update
+    @post = current_member.posts.find(params[:id])
+    @post.update_attributes(params.permit(:title,:content,:cate,:attachment_name,:attachment_url))
+  end
   
 end
