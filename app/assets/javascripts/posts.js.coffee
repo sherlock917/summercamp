@@ -5,6 +5,14 @@
 
 $(document).on 'ready',() ->
 
+  $('#post-attachment-clear').on 'click', () ->
+    $(this).siblings('input').remove()
+    $('<input type="file" id="post-attachment-1" class="post-attachment">')
+    .insertBefore($(this))
+    .on 'change', () ->
+      fileChangeHandler (this)
+    false
+
   $('.post-attachment').on 'change', () ->
     fileChangeHandler (this)
 
