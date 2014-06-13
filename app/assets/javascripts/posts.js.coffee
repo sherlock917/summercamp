@@ -9,31 +9,43 @@ $(document).on 'ready',() ->
     fileChangeHandler (this)
 
   fileChangeHandler = (that) ->
-    length = $('.post-attachment').length
-    last = $('.post-attachment')[length - 1]
-    num = parseInt $(last).attr('id').split('-').pop()
-    console.log num
-    if num >= 3
-      return false
+    file = $(that)[0].files[0]
+    if uploadable(file.type, file.size)
+      length = $('.post-attachment').length
+      last = $('.post-attachment')[length - 1]
+      num = parseInt $(last).attr('id').split('-').pop()
+      if num < 3
+        $('#post-attachment-' + num)
+        .clone()
+        .attr('id', 'post-attachment-' + (num + 1))
+        .insertAfter($(that))
+        .on 'change', () ->
+          fileChangeHandler (this)
     else
-      $('#post-attachment-' + num)
-      .clone()
-      .attr('id', 'post-attachment-' + (num + 1))
-      .insertAfter($(that))
-      .on 'change', () ->
-        fileChangeHandler (this)
+      $(that).val('')
+      alert 'cant upload this file'
 
   $('#post-submit').on 'click', () ->
-    # if $('#post-attachment')[0].files.length > 0
-    #   file = $('#post-attachment')[0].files[0]
-    #   if uploadable(file.type, file.size)
-    #     upload file
-    # else 
-    #   createPost {
-    #     title : $('#post-title').val(),
-    #     content : $('#post-content').val(),
-    #     cate : $('#post-cate').val()
-    #   }
+    if $('#post-attachment-1').val() == ''
+      createPost
+        title : $('#post-title').val(),
+        content : $('#post-content').val(),
+        cate : $('#post-cate').val()
+    else
+      valid = 0
+      attachments = []
+      for input in $('.post-attachment')
+        file = $(input)[0].files[0]
+        if file
+          valid++
+          upload file, (data) ->
+            attachments.push data.key
+            if attachments.length == valid
+              createPost
+                title : $('#post-title').val(),
+                content : $('#post-content').val(),
+                cate : $('#post-cate').val()
+                attachments : attachments,
     false
 
   isImage = (type) ->
@@ -49,13 +61,12 @@ $(document).on 'ready',() ->
     type == 'image/gif') &&
     (size < 50000000)
 
-  upload = (file) ->
+  upload = (file, callback) ->
     token = $('meta[name="qiniu-token"]').attr 'content'
     fd = new FormData()
     fd.append 'file', file
     fd.append 'key', file.name
     fd.append 'token', token
-    console.log 'start uploading'
     $.ajax
       url: 'http://up.qiniu.com',
       dataType: 'json',
@@ -63,20 +74,27 @@ $(document).on 'ready',() ->
       data: fd,
       contentType: false,
       processData: false,
-      success : (data) ->
-        createPost {
-          title : $('#post-title').val(),
-          content : $('#post-content').val(),
-          cate : $('#post-cate').val(),
-          attachment_name : file.name,
-          attachment_url : 'http://scauhci.qiniudn.com/' + data.key
-        }
+      success : callback,
+        # createPost {
+        #   title : $('#post-title').val(),
+        #   content : $('#post-content').val(),
+        #   cate : $('#post-cate').val(),
+        #   attachment_name : file.name,
+        #   attachment_url : 'http://scauhci.qiniudn.com/' + data.key
+        # }
       xhr : () ->
         xhr = $.ajaxSettings.xhr()
         xhr.upload.onprogress = (progress) ->
           percentage = Math.floor(progress.loaded / progress.total * 100)
           console.log  percentage
         xhr
+
+  # uploadSuccessCallback = (data) ->
+    # console.log data
+    # finished++
+    # attachments += 'http://scauhci.qiniudn.com/' + data.key + ''
+    # console.log finished
+    # console.log attachments
 
   createPost = (data) ->
     $.post('/posts', data)

@@ -5,14 +5,18 @@
   <p>title: <%= @post.title %></p>
   <p>content: </p>
   <div><%= markdown_to_html(@post.content).html_safe %></div>
-  <p>
-    attachment: 
-    <% if @post.attachment_url.to_s.ends_with?('.jpg', '.png', '.gif') %>
-      <%= image_tag @post.attachment_url %>
-    <% else %>
-      <%= link_to 'download', @post.attachment_url %>
-    <% end %>
-  </p>
+  <% if @post.attachments.length > 0 %>
+    <p>
+      attachment: <br>
+      <% @post.attachments.each do |attachment| %>
+        <% if attachment.to_s.downcase.ends_with?('.jpg', '.jpeg', '.png', '.gif') %>
+          <%= image_tag 'http://scauhci.qiniudn.com/' + attachment %> <br>
+        <% else %>
+          <%= link_to attachment, 'http://scauhci.qiniudn.com/' + attachment %> <br>
+        <% end %>
+      <% end %>
+    </p>
+  <% end %>
   <p>time: <%= @post.created_at.localtime.to_formatted_s(:db) %></p>
 </div>
 
