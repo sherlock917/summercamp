@@ -6,11 +6,22 @@
 $(document).on 'ready',() ->
 
   $('.post-attachment').on 'change', () ->
-    console.log $(this)
-    # $('#post-attachment-1')
-    # .clone()
-    # .attr('id', )
-    # .insertAfter
+    fileChangeHandler (this)
+
+  fileChangeHandler = (that) ->
+    length = $('.post-attachment').length
+    last = $('.post-attachment')[length - 1]
+    num = parseInt $(last).attr('id').split('-').pop()
+    console.log num
+    if num >= 3
+      return false
+    else
+      $('#post-attachment-' + num)
+      .clone()
+      .attr('id', 'post-attachment-' + (num + 1))
+      .insertAfter($(that))
+      .on 'change', () ->
+        fileChangeHandler (this)
 
   $('#post-submit').on 'click', () ->
     # if $('#post-attachment')[0].files.length > 0

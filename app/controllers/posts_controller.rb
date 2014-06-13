@@ -21,8 +21,9 @@ class PostsController < ApplicationController
   end
 
   def update
-    @post = current_member.posts.find(params[:id])
-    @post.update_attributes(params.permit(:title,:content,:cate,:attachment_name,:attachment_url))
+    post = current_member.posts.find(params[:id])
+    post.update_attributes(params.permit(:title,:content,:cate,:attachment_name,:attachment_url))
+    redirect_to "/posts/#{post.id}"
   end
   
 end
