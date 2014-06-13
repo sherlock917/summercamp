@@ -75,26 +75,12 @@ $(document).on 'ready',() ->
       contentType: false,
       processData: false,
       success : callback,
-        # createPost {
-        #   title : $('#post-title').val(),
-        #   content : $('#post-content').val(),
-        #   cate : $('#post-cate').val(),
-        #   attachment_name : file.name,
-        #   attachment_url : 'http://scauhci.qiniudn.com/' + data.key
-        # }
       xhr : () ->
         xhr = $.ajaxSettings.xhr()
         xhr.upload.onprogress = (progress) ->
           percentage = Math.floor(progress.loaded / progress.total * 100)
           console.log  percentage
         xhr
-
-  # uploadSuccessCallback = (data) ->
-    # console.log data
-    # finished++
-    # attachments += 'http://scauhci.qiniudn.com/' + data.key + ''
-    # console.log finished
-    # console.log attachments
 
   createPost = (data) ->
     $.post('/posts', data)
