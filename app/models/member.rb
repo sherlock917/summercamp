@@ -26,6 +26,7 @@ class Member
 
   field :name, type: String
   field :department, type: String
+  field :role, type: Integer, default: 0
 
   has_many :posts
   has_many :comments

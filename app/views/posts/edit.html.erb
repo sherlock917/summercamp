@@ -1,3 +1,17 @@
-<%= form_for @post %>
+<%= form_for @post, :url => { :controller => 'posts', :action => 'update', :id => @post } do |f| %>
+  
+  <p>
+    <%= f.label :title, 'title' %>
+    <%= f.text_field :title %>
+  </p>
+
+  <p>
+    <%= f.label :content, 'content' %>
+    <%= f.text_area :content %>
+  </p>
+
+  <p>
+    <%= f.submit 'update' %>
+  </p>
 
 <% end %>
