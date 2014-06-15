@@ -4,7 +4,9 @@ class AdminController < ApplicationController
   before_action :is_admin
 
   def index
-
+    @members = Member.all
+    @posts = Post.all
+    @comments = Comment.all
   end
 
   private
