@@ -10,6 +10,9 @@ Rails.application.routes.draw do
   resources :comments
 
   get 'admin' => 'admin#index'
+  get 'admin/members' => 'admin#members'
+  get 'admin/posts' => 'admin#posts'
+  get 'admin/comments' => 'admin#comments'
 
   get 'errors/admin_error' => 'errors#admin_error'
   # resource :comments

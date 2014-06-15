@@ -9,6 +9,18 @@ class AdminController < ApplicationController
     @comments = Comment.all
   end
 
+  def members
+    @members = Member.all
+  end
+
+  def posts
+    @posts = Post.all
+  end
+
+  def comments
+    @comments = Comment.all
+  end
+
   private
 
   def is_admin

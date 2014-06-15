@@ -1,0 +1,8 @@
+<% @posts.each do |post| %>
+
+  <p>
+    <%= post.title %>
+    <%= link_to 'delete', "/posts/#{post.id}", method: :delete %>
+  </p>
+
+<% end %>
