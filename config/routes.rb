@@ -8,6 +8,10 @@ Rails.application.routes.draw do
 
   resources :posts
   resources :comments
+
+  get 'admin' => 'admin#index'
+
+  get 'errors/admin_error' => 'errors#admin_error'
   # resource :comments
 
   # Example of regular route:
