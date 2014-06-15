@@ -27,11 +27,13 @@ class PostsController < ApplicationController
   end
 
   def destroy
-    unless current_member.role == 1
+    if current_member.role == 1
       @post = Post.find(params[:id])
       @post.destroy
       redirect_to '/admin/posts'
       # code, result, response_headers = Qiniu::Storage.delete('scauhci', @item.qiniu_key)
+    else
+      redirect_to '/errors/admin_error'
     end
   end
   
