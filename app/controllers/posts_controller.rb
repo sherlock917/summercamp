@@ -25,5 +25,13 @@ class PostsController < ApplicationController
     post.update_attributes(params.permit(:title,:content))
     redirect_to "/posts/#{post.id}"
   end
+
+  def delete
+    unless current_member.role == 1
+      @post = Post.find(params[:id])
+      @post.destroy
+      # code, result, response_headers = Qiniu::Storage.delete('scauhci', @item.qiniu_key)
+    end
+  end
   
 end
