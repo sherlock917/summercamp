@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'admin/members' => 'admin#members'
   get 'admin/posts' => 'admin#posts'
   get 'admin/comments' => 'admin#comments'
+  get 'admin/delete_post/:post_id' => 'admin#delete_post'
 
   get 'errors/admin_error' => 'errors#admin_error'
   # resource :comments
