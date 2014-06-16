@@ -14,7 +14,7 @@ class AdminController < ApplicationController
   end
 
   def posts
-    @posts = Post.all
+    @posts = Post.all.desc(:created_at)
   end
 
   def comments
