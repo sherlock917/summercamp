@@ -10,7 +10,7 @@ class AdminController < ApplicationController
   end
 
   def members
-    @members = Member.all
+    @members = Member.all.desc(:created_at)
   end
 
   def posts
@@ -18,7 +18,7 @@ class AdminController < ApplicationController
   end
 
   def comments
-    @comments = Comment.all
+    @comments = Comment.all.desc(:created_at)
   end
 
   private
