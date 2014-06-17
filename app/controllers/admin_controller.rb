@@ -22,14 +22,16 @@ class AdminController < ApplicationController
   end
 
   def delete_post
-    @post = Post.find(params[:post_id])
+    post = Post.find(params[:post_id])
+    post.destroy
+    redirect_to '/admin/posts'
   end
 
   private
 
   def is_admin
     unless current_member.role == 1
-      redirect_to "/errors/admin_error"
+      redirect_to '/errors/admin_error'
     end
   end
 
